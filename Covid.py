@@ -123,6 +123,9 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
         return None
 
 def send_email():
+  with open('email.txt', 'r') as f:
+    email_list = [line.strip() for line in f]
+
   CLIENT_SECRET_FILE = 'client_secret.json'
   API_NAME = 'gmail',
   API_VERSION = 'v1'
@@ -136,9 +139,11 @@ def send_email():
   
   # create email message
   mimeMessage = MIMEMultipart()
-  mimeMessage['to'] = 'noel.dolores2@gmail.com'
+  mimeMessage['to'] = ", ".join(email_list)
   mimeMessage['subject'] = 'Updated Pfizer EUA - VSafe PDF [{}]'.format(live_date)
   mimeMessage.attach(MIMEText(emailMsg, 'plain'))
+
+  print(", ".join(email_list))
   
   # Attach files
   for attachment in file_attachments:
@@ -164,4 +169,5 @@ def send_email():
       body={'raw': raw_string}).execute()
       
   print("Email successfully sent!")
+
 scrape_html()
