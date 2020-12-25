@@ -122,6 +122,8 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
         return None
 
 def send_email():
+  filename = Path('email.txt')
+  filename.touch(exist_ok=True)
   with open('email.txt', 'r') as f:
     email_list = [line.strip() for line in f]
 
