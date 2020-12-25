@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from __future__ import print_function
 
 import requests
 import re
@@ -135,7 +134,7 @@ def send_email():
   
   file_attachments = ['PfizerEUA_VSafe.pdf']
   
-  emailMsg = 'One file attached'
+  emailMsg = ''
   
   # create email message
   mimeMessage = MIMEMultipart()
