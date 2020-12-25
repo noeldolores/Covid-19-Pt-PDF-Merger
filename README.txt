@@ -18,3 +18,5 @@ This script does several things:
 4) Downloads the new PDF file
 5) Creates a blank PDF file, where the new file and V-Safe info sheet are merged
 6) Emails the updated version to listed parties
+
+Requires: Gmail API (https://developers.google.com/gmail/api)
