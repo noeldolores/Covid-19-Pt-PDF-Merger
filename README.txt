@@ -17,8 +17,4 @@ This script does several things:
 3) Updates the version date text file
 4) Downloads the new PDF file
 5) Creates a blank PDF file, where the new file and V-Safe info sheet are merged
-<<<<<<< HEAD
 6) Emails the updated version to listed parties
-=======
-6) Emails the updated version to listed parties
->>>>>>> 825f86cd539bc4ee9589db688e9b41e7cbe555b1
