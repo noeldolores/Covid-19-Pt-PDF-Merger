@@ -1,4 +1,6 @@
 # OAth Gmail Access #
-#####################
 *.json
 *.pickle
+
+# Recipient Email List #
+email.txt
