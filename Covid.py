@@ -19,6 +19,9 @@ from email.mime.base import MIMEBase
 from email import encoders
 import mimetypes
 
+global path
+path = '/home/noel/Covid/Covid-19-Pt-PDF-Merger/'
+
 def scrape_html():
   url = 'https://www.fda.gov/emergency-preparedness-and-response/coronavirus-disease-2019-covid-19/pfizer-biontech-covid-19-vaccine'
   page = requests.get(url)
@@ -36,7 +39,7 @@ def scrape_html():
     send_email()
   
 def new_version_check(live_date):
-  filename = Path('local_version_date.txt')
+  filename = Path(f'{path}local_version_date.txt')
   filename.touch(exist_ok=True)
 
   with open(filename, 'r+') as f:
@@ -59,11 +62,11 @@ def new_version_check(live_date):
 def download_PfizerEUA():
   url = 'https://www.fda.gov/media/144414/download'
   r = requests.get(url, allow_redirects=True)
-  open('PfizerEUA.pdf', 'wb').write(r.content)
+  open(f'{path}PfizerEUA.pdf', 'wb').write(r.content)
 
 def combine_pdfs():
-  p1 = open('PfizerEUA.pdf', 'rb')
-  p2 = open('vsafe.pdf', 'rb')
+  p1 = open(f'{path}PfizerEUA.pdf', 'rb')
+  p2 = open(f'{path}vsafe.pdf', 'rb')
 
   p1_reader = PyPDF2.PdfFileReader(p1)
   p2_reader = PyPDF2.PdfFileReader(p2)
@@ -77,7 +80,7 @@ def combine_pdfs():
     pageObj = p2_reader.getPage(pageNum)
     writer.addPage(pageObj)
 
-  p3 = open('PfizerEUA_VSafe.pdf', 'wb')
+  p3 = open(f'{path}PfizerEUA_VSafe.pdf', 'wb')
   writer.write(p3)
 
   p1.close()
@@ -96,7 +99,7 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
  
     cred = None
  
-    pickle_file = f'token_{API_SERVICE_NAME}_{API_VERSION}.pickle'
+    pickle_file = f'{path}token_{API_SERVICE_NAME}_{API_VERSION}.pickle'
  
     if os.path.exists(pickle_file):
         with open(pickle_file, 'rb') as token:
@@ -122,19 +125,19 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
         return None
 
 def send_email():
-  filename = Path('email.txt')
+  filename = Path(f'{path}email.txt')
   filename.touch(exist_ok=True)
-  with open('email.txt', 'r') as f:
+  with open(filename, 'r') as f:
     email_list = [line.strip() for line in f]
 
-  CLIENT_SECRET_FILE = 'client_secret.json'
+  CLIENT_SECRET_FILE = f'{path}client_secret.json'
   API_NAME = 'gmail',
   API_VERSION = 'v1'
   SCOPES = ['https://mail.google.com/']
   
   service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
   
-  file_attachments = ['PfizerEUA_VSafe.pdf']
+  file_attachments = [f'{path}PfizerEUA_VSafe.pdf']
   
   emailMsg = ''
   
