@@ -147,7 +147,7 @@ def send_email():
   # create email message
   mimeMessage = MIMEMultipart()
   mimeMessage['to'] = ", ".join(email_list)
-  mimeMessage['subject'] = 'Updated Pfizer EUA - VSafe PDF [{}]'.format(live_date)
+  mimeMessage['subject'] = 'Updated Pfizer EUA - VSafe PDF [{}-{}-{}]'.format(live_date[:2], live_date[2:4], live_date[6:])
   mimeMessage.attach(MIMEText(emailMsg, 'plain'))
 
   print(", ".join(email_list))
