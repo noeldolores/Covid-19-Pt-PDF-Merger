@@ -154,8 +154,8 @@ def send_email():
   
   # Attach files
   for attachment in file_attachments:
-      content_type, encoding = mimetypes.guess_type(attachment)
-      main_type, sub_type = content_type.split('/', 1)
+      content_type = mimetypes.guess_type(attachment)
+      main_type, sub_type = content_type[0].split('/', 1)
       file_name = os.path.basename(attachment)
   
       f = open(attachment, 'rb')
