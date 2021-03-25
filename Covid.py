@@ -26,12 +26,15 @@ def scrape_html():
   url = 'https://www.fda.gov/emergency-preparedness-and-response/coronavirus-disease-2019-covid-19/pfizer-biontech-covid-19-vaccine'
   page = requests.get(url)
   html = page.content.decode('utf-8')
-  regex = r"Pfizer-BioNTech COVID-19 Vaccine EUA Letter of Authorization reissued (\d+-\d+-\d+)"
+  regex = r"Pfizer-BioNTech COVID-19 Vaccine EUA Letter of Authorization reissued (\d+\d+\d+)" #(\d+-\d+-\d+)"
  
   matches = re.findall(regex, html)
 
   global live_date
-  live_date = matches[0]
+  try:
+    live_date = matches[0]
+  except IndexError:
+    live_date = '01-01-1970'
 
   if new_version_check(live_date):
     download_PfizerEUA()
@@ -131,7 +134,7 @@ def send_email():
     email_list = [line.strip() for line in f]
 
   CLIENT_SECRET_FILE = f'{path}client_secret.json'
-  API_NAME = 'gmail',
+  API_NAME = 'gmail'
   API_VERSION = 'v1'
   SCOPES = ['https://mail.google.com/']
   
@@ -168,9 +171,7 @@ def send_email():
   
   raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
   
-  service.users().messages().send(
-      userId='me',
-      body={'raw': raw_string}).execute()
+  service.users().messages().send(userId='me',body={'raw': raw_string}).execute()
       
   print("Email successfully sent!")
 
