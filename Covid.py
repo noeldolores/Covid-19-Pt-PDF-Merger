@@ -26,15 +26,16 @@ def scrape_html():
   url = 'https://www.fda.gov/emergency-preparedness-and-response/coronavirus-disease-2019-covid-19/pfizer-biontech-covid-19-vaccine'
   page = requests.get(url)
   html = page.content.decode('utf-8')
-  regex = r"Pfizer-BioNTech COVID-19 Vaccine EUA Letter of Authorization reissued (\d+\d+\d+)" #(\d+-\d+-\d+)"
+  #regex = r"Pfizer-BioNTech COVID-19 Vaccine EUA Letter of Authorization reissued (\d+\d+\d+)" #(\d+-\d+-\d+)"
+  regex = r"Letter Granting EUA Amendment \(\w+ \d+, \d+\)\">Letter Granting EUA Amendment \((\d+/\d+/\d+)\)"
  
-  matches = re.findall(regex, html)
+  matches = re.search(regex, html)
 
   global live_date
   try:
-    live_date = matches[0]
+    live_date = matches[1]
   except IndexError:
-    live_date = '01-01-1970'
+    live_date = '01/01/1970'
 
   if new_version_check(live_date):
     download_PfizerEUA()
@@ -147,7 +148,7 @@ def send_email():
   # create email message
   mimeMessage = MIMEMultipart()
   mimeMessage['to'] = ", ".join(email_list)
-  mimeMessage['subject'] = 'Updated Pfizer EUA - VSafe PDF [{}-{}-{}]'.format(live_date[:2], live_date[2:4], live_date[6:])
+  mimeMessage['subject'] = 'Updated Pfizer EUA + VSafe PDF [{}]'.format(live_date)
   mimeMessage.attach(MIMEText(emailMsg, 'plain'))
 
   print(", ".join(email_list))
