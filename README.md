@@ -5,9 +5,9 @@ Problem:<br/>
 <ol>
 <li>The source files for the Covid Vaccine patient handout are updated randomly and frequently.</li>
 <li>Printing and assembling the handouts is time and paper inefficient.</li>
+</ol>
 
 Solution:<br/>
-
 <li>Automate the process of checking the date of the current Pfizer EUA using a web-scraping script.</li>
 <li>Email a single PDF that contains both the new Pfizer EUA and V-Safe files when new versions are available.</li>
 </ol><br/>
