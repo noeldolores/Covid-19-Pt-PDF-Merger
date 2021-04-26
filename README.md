@@ -17,4 +17,5 @@ Requirements:<br/>
 <ol>
 <li>PyPDF2: https://pypi.org/project/PyPDF2/</li>
 <li>GMAIL API: https://developers.google.com/gmail/api/quickstart/python</li>
+<li>'email.txt' file that contains line-seperated email addresses to notify.</li>
 </ol>
