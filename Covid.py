@@ -26,9 +26,8 @@ def scrape_html():
   url = 'https://www.fda.gov/emergency-preparedness-and-response/coronavirus-disease-2019-covid-19/pfizer-biontech-covid-19-vaccine'
   page = requests.get(url)
   html = page.content.decode('utf-8')
-  #regex = r"Pfizer-BioNTech COVID-19 Vaccine EUA Letter of Authorization reissued (\d+\d+\d+)" #(\d+-\d+-\d+)"
-  regex = r"Letter Granting EUA Amendment \(\w+ \d+, \d+\)\">Letter Granting EUA Amendment \((\d+/\d+/\d+)\)"
- 
+  regex = r"Pfizer-BioNTech COVID-19 Vaccine EUA Letter of Authorization reissued (\d+\/\d+\/\d+)"
+
   matches = re.search(regex, html)
 
   global live_date
